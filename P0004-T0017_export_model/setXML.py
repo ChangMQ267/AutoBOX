@@ -41,14 +41,52 @@ def setObject(name, xmin, ymin, w, h):
     return strObject
 
 
+def setMaxScore():
+    pass
+
+
 def loadresultList(Path, FileName, SavePath, resultList):
     ObjectList = []
+    HLJ_b_max = 1
+    HLJ_a_max = 1
+    HCJ_c_max = 1
+    HCJ_d_max = 1
+    num = 1
     for result in resultList:
         # print(result)
-        if result.get('score') >= 0.5:
-            name = result.get('category')
-            bbox = result.get('bbox')
+        # if result.get('score') >= 0.5:
+        # print(result)
+        name = result.get('category')
+        bbox = result.get('bbox')
+        # print("No:%d" % num)
+        # print(result)
+        if name == '红龙睛-a' and HLJ_a_max == 1:
+            # print(str(result) + '红龙睛-a')
             ObjectList.append(setObject(name, bbox[0], bbox[1], bbox[2], bbox[3]))
+            HLJ_a_max = 0
+            if result.get('score') < 0.5:
+                print(FileName, "--", result.get('score'), "--", result)
+        if name == '红龙睛-b' and HLJ_b_max == 1:
+            # print(str(result) + '红龙睛-b')
+            ObjectList.append(setObject(name, bbox[0], bbox[1], bbox[2], bbox[3]))
+            HLJ_b_max = 0
+            if result.get('score') < 0.5:
+                print(FileName, "--", result.get('score'), "--", result)
+        if name == '红草金-c' and HCJ_c_max == 1:
+            # print(str(result) + '红草金-c')
+            ObjectList.append(setObject(name, bbox[0], bbox[1], bbox[2], bbox[3]))
+            HCJ_c_max = 0
+            if result.get('score') < 0.5:
+                print(FileName, "--", result.get('score'), "--", result)
+        if name == '红草金-d' and HCJ_d_max == 1:
+            # print(str(result) + '红草金-d')
+            ObjectList.append(setObject(name, bbox[0], bbox[1], bbox[2], bbox[3]))
+            HCJ_d_max = 0
+            if result.get('score') < 0.5:
+                print(FileName, "--", result.get('score'), "--", result)
+        if name == 'head' and result.get('score') >= 0.5:
+            ObjectList.append(setObject(name, bbox[0], bbox[1], bbox[2], bbox[3]))
+        num += 1
     setXML(FileName, Path, ObjectList, SavePath)
 
 

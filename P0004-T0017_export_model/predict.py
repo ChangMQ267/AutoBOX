@@ -21,8 +21,10 @@ print("Model loaded.")
 # https://github.com/PaddlePaddle/PaddleX/issues/116
 
 # E:\VOC\JPEGImages 图片资源地址
-PATH = "E:/VOC/JPEGImages"
-SAVEPATH = "E:/VOC/anno"
+PATH = "E:/VOC20210419/JPEGImages"
+SAVEPATH = "E:/VOC20210419/anno"
+# PATH = "D:/ProgramTools/Workspaces/AutoBOX/P0004-T0017_export_model/photo"
+# SAVEPATH = "D:/ProgramTools/Workspaces/AutoBOX/P0004-T0017_export_model/anno"
 try:
     os.mkdir(SAVEPATH)
 except:
@@ -35,6 +37,8 @@ for (dirpath, dirnames, filenames) in os.walk(PATH):
         im = cv2.imread(img)
         im = im.astype('float32')
         resultList = model.predict(im)
+        # print(resultList)
+        # pdx.det.visualize(im, resultList, threshold=0.5, save_dir=SAVEPATH)
         loadresultList(dirpath, file, SAVEPATH, resultList)
         # 输出分类结果
         # if model.model_type == "classifier":
